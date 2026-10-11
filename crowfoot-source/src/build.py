@@ -3,7 +3,7 @@
 Run from the project root:  python3 src/build.py   ->  writes ./dist"""
 import hashlib, json, os, re, shutil, subprocess, sys
 ROOT = os.getcwd(); SRC = os.path.join(ROOT, 'src'); DIST = os.path.join(ROOT, 'dist'); BIN = os.path.join(ROOT, 'node_modules', '.bin')
-VERSION = '3.1.0'
+VERSION = '3.2.0'
 def run(*a): subprocess.run(a, check=True, cwd=ROOT)
 def h(p): return hashlib.md5(open(p, 'rb').read()).hexdigest()[:8]
 shutil.rmtree(DIST, ignore_errors=True)

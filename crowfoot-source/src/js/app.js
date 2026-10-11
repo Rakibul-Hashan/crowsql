@@ -2357,6 +2357,7 @@ window.addEventListener('resize', closePop);
   try { const k = MODES.findIndex(m => m[0] === localStorage.getItem('crowfoot_mode')); if (k > 0) { mi = k; window.__mode = MODES[k][0]; world.classList.add('mode-' + MODES[k][0]); $('#btnMode').textContent = 'Mode: ' + MODES[k][1]; } } catch (e) {}
 
   const CHANGELOG = [
+    ['3.2', ['Database → ERD: a schema sent from the Crowfoot + OurSQL shell opens as a diagram with no manual import (undo restores your previous diagram).']],
     ['3.1', ['Normalization Lab: Check normal forms tests 1NF, 2NF, 3NF and BCNF, names the exact dependency that breaks each form, and reports the highest form reached.']],
     ['3.0', ['Production release: separate HTML, CSS and JS files, locally hosted fonts, compiled and minified CSS, offline support (installable app), security headers and a cache-friendly build. No more CDN requests.']],
     ['2.36', ['Normalization Lab: Find candidate keys lists every minimal key of R and shows prime and non-prime attributes.']],
@@ -2442,4 +2443,11 @@ window.addEventListener('resize', closePop);
     fit(); addEventListener('resize', fit); addEventListener('orientationchange', fit); addEventListener('load', fit);
     setTimeout(fit, 300); setTimeout(fit, 1200); if (document.fonts && document.fonts.ready) document.fonts.ready.then(fit);
   })();
+
+  /* shell bridge: the Crowfoot + OurSQL shell can send a database schema here (same-origin parent frame only) */
+  window.addEventListener('message', e => {
+    if (e.origin !== location.origin || window.parent === window || e.source !== window.parent) return;
+    const m = e.data; if (!m || m.type !== 'cf:import-sql' || typeof m.sql !== 'string') return;
+    if (importSQL(m.sql, false) && m.name) { S.name = String(m.name).slice(0, 80); syncTopbar(); commit(); }
+  });
 })();

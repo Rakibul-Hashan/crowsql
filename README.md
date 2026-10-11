@@ -1,11 +1,18 @@
 # Crowfoot + OurSQL
 
-One site, two workspaces, nothing changed inside either app:
+One site, two workspaces. No feature of either app was changed; each gets one small hidden message handler so the shell can send a database schema from OurSQL to Crowfoot (see Database → ERD).
 
-- **Crowfoot** (`crowfoot/`): MySQL ER diagram designer, v3.1.
+- **Crowfoot** (`crowfoot/`): MySQL ER diagram designer, v3.2.
 - **OurSQL** (`oursql/`): browser-local MariaDB workspace, v1.3.3.
 
 `index.html` is a thin shell with two tabs. Each app opens in its own frame, keeps its own state, and OurSQL's 17 MB database engine loads only the first time you open its tab.
+
+## Database → ERD
+1. Open the **OurSQL** tab and click a database name in the left list.
+2. Press **Database → ERD** in the top bar.
+3. Crowfoot opens with that database's tables and foreign keys as a diagram, named after the database. Press Undo in Crowfoot to bring back your previous diagram.
+
+How it works: the shell asks OurSQL for `SHOW CREATE TABLE` of every table in the open database, then hands the SQL to Crowfoot's normal SQL import. Messages are accepted only between this site's own frames. Views are skipped.
 
 ## Host it (important)
 OurSQL needs the headers `Cross-Origin-Opener-Policy: same-origin` and `Cross-Origin-Embedder-Policy: require-corp`. Use a host that lets you set headers:
@@ -35,5 +42,9 @@ Replace only that app's folder (`crowfoot/` or `oursql/`) and push. The other ap
 ## License
 OurSQL is GPL-2.0 (MariaDB engine and phpMyAdmin theme assets). If you distribute this combined site, publish it under GPL-2.0-compatible terms and keep the notices in `licenses/` and `oursql/`. This is not legal advice.
 
+## Code added to the apps
+- `oursql/app.js`: one hidden `message` handler at the end of the file (reads the schema, no visible change).
+- Crowfoot v3.2 (`crowfoot-source/src/js/app.js`): one hidden `message` handler that runs the normal SQL import.
+
 ## Changes made only for hosting
-The apps' own `_headers`, `.htaccess` and `vercel.json` files were removed from their folders and replaced by the root `_headers` and `vercel.json`. Crowfoot's frame rule changed from "never framed" to "framed by this site only", so the shell can show it. No app code was changed.
+The apps' own `_headers`, `.htaccess` and `vercel.json` files were removed from their folders and replaced by the root `_headers` and `vercel.json`. Crowfoot's frame rule changed from "never framed" to "framed by this site only", so the shell can show it. 

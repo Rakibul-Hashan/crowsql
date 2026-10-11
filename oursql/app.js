@@ -126,3 +126,5 @@ async function validateEditorSQL(sql){
 }
 document.addEventListener('keydown',e=>{if(e.key==='Escape')document.body.classList.remove('nav-open');if((e.key==='Enter'||e.key===' ')&&e.target.matches?.('a[role=button]')){e.preventDefault();e.target.click()}});
 start();
+/* Crowfoot shell bridge: replies with the CREATE TABLE statements of the open database (same-origin parent frame only). */
+window.addEventListener('message',async e=>{if(e.origin!==location.origin||parent===window||e.source!==parent)return;const m=e.data;if(!m||m.type!=='cf:get-schema')return;const reply=d=>parent.postMessage({type:'cf:schema',...d},location.origin);try{const db=m.db||database;if(!db)return reply({error:'no-database'});const tabs=(await q('SHOW FULL TABLES FROM '+qi(db))).filter(r=>String(Object.values(r)[1]).toUpperCase()==='BASE TABLE').map(r=>Object.values(r)[0]);if(!tabs.length)return reply({error:'no-tables',db});let sql='';for(const t of tabs){const r=(await q('SHOW CREATE TABLE '+qi(db)+'.'+qi(t)))[0];sql+=Object.values(r)[1]+';\n\n'}reply({sql,db,count:tabs.length})}catch(err){reply({error:String(err&&err.message||err)})}});

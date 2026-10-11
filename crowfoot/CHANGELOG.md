@@ -2,6 +2,9 @@
 
 All notable changes to Crowfoot ER Designer.
 
+## v3.2
+- Database → ERD: a schema sent from the Crowfoot + OurSQL shell opens as a diagram with no manual import (undo restores your previous diagram).
+
 ## v3.1
 - Normalization Lab: Check normal forms tests 1NF, 2NF, 3NF and BCNF, names the exact dependency that breaks each form, and reports the highest form reached.
 

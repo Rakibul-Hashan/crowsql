@@ -17,12 +17,14 @@
     <button class="tab" role="tab" id="tab-crowfoot" data-app="crowfoot" aria-controls="app-crowfoot" aria-selected="true"><span class="long">Crowfoot · ER Designer</span><span class="short">ER Designer</span></button>
     <button class="tab" role="tab" id="tab-oursql" data-app="oursql" aria-controls="app-oursql" aria-selected="false"><span class="long">OurSQL · SQL Workspace</span><span class="short">SQL</span></button>
   </nav>
+  <button class="act" id="btn-erd" type="button" title="Open the database selected in OurSQL as an ER diagram in Crowfoot"><span class="long">Database → ERD</span><span class="short">→ ERD</span></button>
 </header>
 <main class="stage">
   <iframe id="app-crowfoot" class="app" title="Crowfoot ER Designer" data-src="crowfoot/index.html" allow="clipboard-read; clipboard-write; fullscreen"></iframe>
   <iframe id="app-oursql" class="app" title="OurSQL SQL Workspace" data-src="oursql/index.html" allow="clipboard-read; clipboard-write; fullscreen" hidden></iframe>
   <div id="loading" class="loading" hidden><div class="spin" aria-hidden="true"></div><p id="loading-text">Loading…</p></div>
 </main>
+<div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
 <noscript><p style="padding:24px;font-family:system-ui">This workspace needs JavaScript. Please enable it and reload.</p></noscript>
 <script src="shell/shell.js" defer></script>
 </body>
