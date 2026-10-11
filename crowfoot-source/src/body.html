@@ -1,0 +1,84 @@
+<div id="app" class="flex h-full flex-col">
+
+  <header class="topbar flex h-12 shrink-0 items-center gap-1 px-2.5">
+    <div class="flex items-center gap-2 pr-2" aria-label="Crowfoot">
+      <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="var(--accent)" stroke-width="2.3" stroke-linecap="round" aria-hidden="true"><path d="M2.5 12h10.5M13 12L21 5M13 12l8 7M13 12h8"/></svg>
+      <span class="text-[15px] font-semibold tracking-tight">Crowfoot</span>
+    </div>
+    <input id="diagName" class="fld w-44" aria-label="Diagram name" placeholder="Diagram name" spellcheck="false">
+    <span class="sep"></span>
+    <button class="btn" id="btnTable" title="Add table (N)"><span id="icoTable"></span>Table</button>
+    <button class="btn" id="btnNote" title="Add note"><span id="icoNote"></span>Note</button>
+    <button class="btn" id="btnRel" title="Add a relationship, ISA or associative entity"><span id="icoRel"></span>Relationship</button>
+    <span class="sep"></span>
+    <button class="btn icon-btn" id="btnUndo" title="Undo (Ctrl+Z)" aria-label="Undo"></button>
+    <button class="btn icon-btn" id="btnRedo" title="Redo (Ctrl+Shift+Z)" aria-label="Redo"></button>
+    <span class="sep"></span>
+    <label class="flex items-center gap-1.5 text-[12px] muted flex-none">Symbols
+      <select id="selNotation" class="fld" aria-label="Relationship notation">
+        <option value="crow">Crow's foot</option>
+        <option value="chen">Chen (diamonds)</option>
+        <option value="uml">UML (1..*)</option>
+      </select>
+    </label>
+    <label class="flex items-center gap-1.5 text-[12px] muted flex-none ml-1">Lines
+      <select id="selLine" class="fld" aria-label="Line style">
+        <option value="curved">Curved</option>
+        <option value="orthogonal">Right-angle</option>
+        <option value="straight">Straight</option>
+      </select>
+    </label>
+    <label class="flex items-center gap-1.5 text-[12px] muted flex-none ml-1">Attributes
+      <select id="selAttr" class="fld" aria-label="Attribute display">
+        <option value="rows">Table rows</option>
+        <option value="ovals">Chen ovals</option>
+      </select>
+    </label>
+    <span class="sep"></span>
+    <button class="btn" id="btnArrange" title="Auto-arrange tables"><span id="icoArrange"></span>Arrange</button>
+    <button class="btn" id="btnFit" title="Fit to screen (F)"><span id="icoFit"></span>Fit</button>
+    <span class="flex-1"></span>
+    <button class="btn" id="btnFile">File</button>
+    <button class="btn solid" id="btnExport"><span id="icoDl"></span>Export</button>
+    <button class="btn icon-btn" id="btnTheme" title="Toggle light / dark" aria-label="Toggle theme"></button>
+    <button class="btn icon-btn" id="btnHelp" title="Shortcuts and tips" aria-label="Help"></button>
+    <button class="btn icon-btn" id="btnPanel" title="Toggle inspector" aria-label="Toggle inspector"></button>
+  </header>
+
+  <div class="relative flex min-h-0 flex-1">
+    <main id="viewport" aria-label="ER diagram canvas">
+      <div id="world">
+        <svg id="links" aria-hidden="true"></svg>
+        <svg id="nodes" aria-hidden="true"></svg>
+        <div id="tables"></div>
+        <svg id="overlay" aria-hidden="true"></svg>
+      </div>
+
+      <div id="empty">
+        <div class="card" data-ui>
+          <div class="text-[16px] font-semibold mb-1">Start your schema</div>
+          <p class="text-[13px] muted mb-4" style="line-height:1.5">Add a table, paste existing CREATE TABLE statements, or open the sample shop schema. Everything you draw stays in your browser.</p>
+          <div class="flex flex-wrap gap-2">
+            <button class="btn solid" id="emptyTable">Add first table</button>
+            <button class="btn bordered" id="emptyImport">Import SQL</button>
+            <button class="btn bordered" id="emptySample">Open sample</button>
+          </div>
+        </div>
+      </div>
+
+      <div id="zoomctl" data-ui>
+        <button class="btn icon-btn" id="zOut" title="Zoom out (-)" aria-label="Zoom out"></button>
+        <button class="btn" id="zLabel" title="Reset to 100%" style="min-width:52px;justify-content:center;font-family:var(--mono);font-size:12px">100%</button>
+        <button class="btn icon-btn" id="zIn" title="Zoom in (+)" aria-label="Zoom in"></button>
+      </div>
+    </main>
+    <aside id="inspector" aria-label="Inspector"></aside>
+  </div>
+</div>
+
+<datalist id="mysql-types"></datalist>
+<svg id="measure" width="0" height="0" style="position:absolute;visibility:hidden;pointer-events:none" aria-hidden="true"><path id="mp" d="M0 0"/></svg>
+<div id="toast" class="toast" role="status" aria-live="polite"></div>
+<input type="file" id="fileJson" accept=".json,application/json" style="display:none">
+<input type="file" id="fileSql" accept=".sql,.txt,text/plain" style="display:none">
+

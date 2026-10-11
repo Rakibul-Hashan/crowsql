@@ -1,0 +1,20 @@
+OurSQL — independent phpMyAdmin-style learning workspace.
+Not affiliated with or endorsed by phpMyAdmin.
+
+Database engine: lite4mariadb 0.1.2, GPL-2.0-only.
+Upstream source and build instructions: https://github.com/shyim/lite4mariadb
+MariaDB source: https://github.com/MariaDB/server
+The accompanying MARIADB-LICENSE.txt includes its license.
+
+phpMyAdmin logo is from phpMyAdmin RELEASE_5_2_2, GPL-2.0-or-later.
+Source: https://github.com/phpmyadmin/phpmyadmin/tree/RELEASE_5_2_2
+Theme appearance is based on pmahomme. Original UI code in app.js and style.css
+is available at these same URLs, and licensed GPL-2.0-or-later.
+This is a recreation of the core learning workflow, not the original PHP app.
+
+Updated interface uses the original phpMyAdmin 5.2.1 pmahomme CSS and PNG icons.
+Unmodified upstream theme assets are under /theme/.
+phpMyAdmin 5.2.1 source: https://files.phpmyadmin.net/phpMyAdmin/5.2.1/phpMyAdmin-5.2.1-all-languages.tar.gz
+See PHPMYADMIN-LICENSE.txt (GPL-2.0-or-later).
+
+SQL editor uses the original CodeMirror assets bundled with phpMyAdmin 5.2.1 (MIT; editor/vendor/LICENSE). Keyword flags are derived from phpMyAdmin SQL Parser MariaDB 10.6 context (GPL-2.0-or-later; editor/vendor/SQL-PARSER-LICENSE.txt).
